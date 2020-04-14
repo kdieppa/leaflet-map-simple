@@ -29,7 +29,7 @@
   <div id="map"></div>
 
   <!-- Create the map content with JavaScript (.js) -->
-  <script>
+<!--   <script>
 
   /* Set up the map with initial center and zoom level */
   var map = L.map('map', {
@@ -51,25 +51,10 @@
   }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   // controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
-  // Add some GeoJSON
-  L.geoJSON()
+  </script> -->
+  
+  <script type="text/javascript" src="counties.js"></script>
 
-  /* Display a blue point marker with pop-up text */
-//   L.marker([41.77, -72.69]).addTo(map) // EDIT latitude, longitude to re-position marker
-//   .bindPopup("Insert pop-up text here"); // EDIT pop-up text message
-
-  /* Upload Latitude/Longitude markers from data.csv file, show Title in pop-up, and override initial center and zoom to fit all in map */
-//   var customLayer = L.geoJson(null, {
-//    onEachFeature: function(feature, layer) {
-//      layer.bindPopup(feature.properties.Title);
-//    }
-//   });
-//   var runLayer = omnivore.csv('data.csv', null, customLayer)
-//   .on('ready', function() {
-//    map.fitBounds(runLayer.getBounds());
-//   }).addTo(map);
-//   controlLayers.addOverlay(customLayer, 'Markers from data.csv');
-
-  </script>
+  
 </body>
 </html>
