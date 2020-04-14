@@ -53,17 +53,8 @@
   controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
   // load GeoJSON from an external file
-  $.getJSON("rodents.geojson",function(data){
-    var ratIcon = L.icon({
-      iconUrl: 'http://maptimeboston.github.io/leaflet-intro/rat.gif',
-      iconSize: [50,40]
-    });
-    L.geoJson(data,{
-      pointToLayer: function(feature,latlng){
-	    return L.marker(latlng,{icon: ratIcon});
-      }
-    }).addTo(map);
-  });
+  L.geoJson(us_counties).addTo(map);
+
     
   </script>
   
