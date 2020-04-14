@@ -33,8 +33,9 @@
 
   /* Set up the map with initial center and zoom level */
   var map = L.map('map', {
-    center: [39.828175, -98.5795], // EDIT latitude, longitude to re-center map
+    center: [39.828175, -98.5795], // map center set to geographic center of the US
     zoom: 5,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
+    // zoom level set to 5 (as close as possible while still displaying the entire contiguous US)
     scrollWheelZoom: false
   });
 
