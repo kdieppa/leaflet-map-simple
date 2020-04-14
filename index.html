@@ -53,8 +53,17 @@
   }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
-  // load GeoJSON from an external file
-  L.geoJSON(us_counties).addTo(map);
+  /* Upload Latitude/Longitude markers from data.csv file, show Title in pop-up, and override initial center and zoom to fit all in map */
+  var customLayer = L.geoJson(null, {
+   onEachFeature: function(feature, layer) {
+     layer.bindPopup(feature.properties.Title);
+   }
+  });
+  var runLayer = omnivore.csv('counties.csv', null, customLayer)
+  .on('ready', function() {
+   map.fitBounds(runLayer.getBounds());
+  }).addTo(map);
+  controlLayers.addOverlay(customLayer, 'Data from counties.csv');
 
   </script>
 
