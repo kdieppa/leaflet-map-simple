@@ -64,7 +64,7 @@
 
 	info.update = function (props) {
 		this._div.innerHTML = '<h4>County Data</h4>' +  (props ?
-			'<b>' + props.County + '</b><br />' + 'Incidence Rate: ' + props.Incidence
+			'<b>' + props.NAMELSAD + '</b><br />' + 'Incidence Rate: ' + props.adj_incidenceper1000 + '</b><br />' + 'Case Fatality Rate: ' + props.adj_casefatality
 			: 'Hover over a county');
 	};
 
