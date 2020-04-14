@@ -54,8 +54,15 @@
 
   // load GeoJSON from an external file
   $.getJSON("rodents.geojson",function(data){
-    // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(map);
+    var ratIcon = L.icon({
+      iconUrl: 'http://maptimeboston.github.io/leaflet-intro/rat.gif',
+      iconSize: [50,40]
+    });
+    L.geoJson(data,{
+      pointToLayer: function(feature,latlng){
+	    return L.marker(latlng,{icon: ratIcon});
+      }
+    }).addTo(map);
   });
     
   </script>
