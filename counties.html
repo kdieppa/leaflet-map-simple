@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Executions in US Counties</title>
+	<meta charset="utf-8" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="//eric.clst.org/explore/maps/leaflet/dist/leaflet.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" href="http://eric.clst.org/explore/maps/leaflet/dist/leaflet.ie.css" /><![endif]-->
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="//eric.clst.org/explore/maps/leaflet/dist/leaflet.js"></script>
+    <script type="text/javascript" src="//eric.clst.org/explore/maps/tile.stamen.js"></script>
+    <script type="text/javascript" src="//eric.clst.org/explore/maps/leaflet/leafletTextMarker.js"></script>
+	<link rel="stylesheet" href="counties.css" />
+</head>
+<body>
+	<h1>Executions in US Counties</h1>
+
+	<div id="map" style="width: 800px; height: 600px"></div>
+
+    <script type="text/javascript" src="counties/ecounties-out.js"></script>
+    <script type="text/javascript" src="counties.js"></script>
+
+	<h2>Sources</h2>
+
+	<p>The execution data shown on this map comes from the CSV file provided at the <a href="http://www.deathpenaltyinfo.org/views-executions">Death Penalty Information Center</a>.</p>
+	<p>The county shapes come from the <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html">US Census</a> converted to <a href="http://eric.clst.org/tech/usgeojson/">GeoJSON</a> format.</p>
+</body>
+</html>
