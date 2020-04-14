@@ -1,71 +1,162 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>leaflet-map-simple</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
 
-  <!-- Load Leaflet: instructions at http://leafletjs.com/download.html -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
-  integrity="sha384-Zh+y1U8o6/7ni8Mp8szvUfZjGeKKS10CGH3IlD6L1X+XwzYgQ1llOjw/Wslc0cma"
-  crossorigin="anonymous">
-  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
-      <script src="jquery-2.1.1.min.js"></script>
-  <script src="https://github.com/kdieppa/svi-and-covid-19-cfr/blob/master/us_counties.json"></script>
-  integrity="sha384-6rCYjRgWDEI2RlZxiVihj1WIZB/uvFiRCGpavTVgFrSPDL0Bk1AiqCW+mmv5h0LP"
-  crossorigin="anonymous"></script>
-  <!-- Load Omnivore plugin to convert CSV to GeoJSON format -->
-  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+	<title>SVI and CFR in US Counties during COVID-19 Pandemic</title>
 
-  <!-- Position the map and title with Cascading Style Sheet (.css) -->
-  <style>
-  body { margin:0; padding:0; }
-  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
-  #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: white; border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; }
-  </style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+
+<!-- 	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>  -->
+
+<style>#map { position: absolute; top:0; bottom:0; right:0; left:0; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+	
 </head>
 <body>
 
-  <!-- Display the map and title with HTML division tags  -->
-  <div id="map-title">Social Vulnerability and COVID-19 Case Fatality Rates by US County</div>
-  <div id="map"></div>
 
-  <!-- Create the map content with JavaScript (.js) -->
-  <script>
+	
+<div id='map'></div>
 
-  /* Set up the map with initial center and zoom level */
-  var map = L.map('map', {
-    center: [39.828175, -98.5795], // map center set to geographic center of the US
-    zoom: 5,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
-    // zoom level set to 5 (as close as possible while still displaying the entire contiguous US)
-    scrollWheelZoom: false
-  });
+<script type="text/javascript" src="us-states.js"></script>
+<script type="text/javascript" src="selected_counties.json"></script>
 
-  /* Control panel to display map layers */
-  var controlLayers = L.control.layers( null, null, {
-   position: "topright",
-   collapsed: false
-  }).addTo(map);
 
-  /* Carto light-gray basemap tiles with labels */
-  var light = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-  }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
-  controlLayers.addBaseLayer(light, 'Carto Light basemap');
+<script type="text/javascript">
 
-  /* Upload Latitude/Longitude markers from data.csv file, show Title in pop-up, and override initial center and zoom to fit all in map */
-  var customLayer = L.geoJson(null, {
-   onEachFeature: function(feature, layer) {
-     layer.bindPopup(feature.properties.Title);
-   }
-  });
-  var runLayer = omnivore.csv('counties.csv', null, customLayer)
-  .on('ready', function() {
-   map.fitBounds(runLayer.getBounds());
-  }).addTo(map);
-  controlLayers.addOverlay(customLayer, 'Data from counties.csv');
+	var map = L.map('map').setView([37.8, -96], 5);
 
-  </script>
+	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2F0aHlkaWVwcGEiLCJhIjoiY2s4eHNwcWl0MDRydDNmcW55aDd1cHM1OCJ9.sTRGBPRGMhiC8gBAXRnU6A', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/dark-v9',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(map);
+
+
+	// control that shows state info on hover
+	var info = L.control();
+
+	info.onAdd = function (map) {
+		this._div = L.DomUtil.create('div', 'info');
+		this.update();
+		return this._div;
+	};
+
+	info.update = function (props) {
+		this._div.innerHTML = '<h4>County Data</h4>' +  (props ?
+			'<b>' + props.County + '</b><br />' + 'Incidence Rate: ' + props.Incidence
+			: 'Hover over a county');
+	};
+
+	info.addTo(map);
+
+
+	// get color depending on population density value
+	function getColor(d) {
+		return d > 3 ? '#d73027' :
+				d > 2  ? '#fee08b' :
+							'#1a9850';
+	}
+
+	function style(feature) {
+		return {
+			stroke: false,
+			fillOpacity: 0.7,
+			fillColor: getColor(feature.properties.Incidence)
+		};
+	}
+
+	function highlightFeature(e) {
+		var layer = e.target;
+
+		layer.setStyle({
+			color: '#666',
+			dashArray: '',
+			fillOpacity: 0.7
+		});
+
+		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+			layer.bringToFront();
+		}
+
+		info.update(layer.feature.properties);
+	}
+
+	var geojson;
+
+	function resetHighlight(e) {
+		geojson.resetStyle(e.target);
+		info.update();
+	}
+
+	function zoomToFeature(e) {
+		map.fitBounds(e.target.getBounds());
+	}
+
+	function onEachFeature(feature, layer) {
+		layer.on({
+			mouseover: highlightFeature,
+			mouseout: resetHighlight,
+			click: zoomToFeature
+		});
+	}
+
+	geojson = L.geoJson(selectedCounties, {
+		style: style,
+		onEachFeature: onEachFeature
+	}).addTo(map);
+
+	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
+	var legend = L.control({position: 'bottomright'});
+
+	legend.onAdd = function (map) {
+
+		var div = L.DomUtil.create('div', 'info legend'),
+			grades = [0, 2, 3],
+			labels = [],
+			from, to;
+
+		for (var i = 0; i < grades.length; i++) {
+			from = grades[i];
+			to = grades[i + 1];
+
+			labels.push(
+				'<i style="background:' + getColor(from + 1) + '"></i> ' +
+				from + (to ? '&ndash;' + to : '+'));
+		}
+
+		div.innerHTML = labels.join('<br>');
+		return div;
+	};
+
+	legend.addTo(map);
+
+</script>
+
+
 
 </body>
 </html>
