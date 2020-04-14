@@ -46,9 +46,9 @@
   }).addTo(map);
 
   /* Carto light-gray basemap tiles with labels */
-  var light = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+  var light = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
-  }); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
+  }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   // controlLayers.addBaseLayer(light, 'Carto Light basemap');
 
   /* Stamen colored terrain basemap tiles with labels */
@@ -56,13 +56,6 @@
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
   }); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   // controlLayers.addBaseLayer(terrain, 'Stamen Terrain basemap');
-    
-  var mapboxAccessToken = 'pk.eyJ1Ijoia2F0aHlkaWVwcGEiLCJhIjoiY2s4eHNwcWl0MDRydDNmcW55aDd1cHM1OCJ9.sTRGBPRGMhiC8gBAXRnU6A';
-  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=' + mapboxAccessToken, {
-    id: 'mapbox/light-v9',
-    attribution: ...,
-    tileSize: 512
-  }).addTo(map);
 
   /* Display a blue point marker with pop-up text */
 //   L.marker([41.77, -72.69]).addTo(map) // EDIT latitude, longitude to re-position marker
