@@ -51,7 +51,8 @@
 		tileSize: 512,
 		zoomOffset: -1
 	}).addTo(map);
-
+	
+	L.geoJson(countyData).addTo(map);
 
 	// control that shows state info on hover
 	var info = L.control();
