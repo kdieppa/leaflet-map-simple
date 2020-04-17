@@ -18,26 +18,36 @@
 			margin: 0;
 		}
 		#map {
-			width: 600px;
-			height: 400px;
+			width: 1000px;
+			height: 600px;
 		}
 	</style>
 
 <style>
-#map { width: 800px; height: 500px; }
+#map { width: 1000px; height: 600px; }
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 .legend { text-align: left; line-height: 16px; color: #555; font: 14px/16px Arial, Helvetica, sans-serif;} .legend i { width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.7; }
 /* #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: rgba(255,255,255,0.8); border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; opacity: 0.7;} */
 </style>
-	
+
 </head>
 <body>
 
 
 <!-- <div id="map-title">Social Vulnerability, Incidence Rate, and Fatality Rate in US Counties during COVID-19 Pandemic</div>	 -->
 <div id='map'></div>
+<div style="padding-left: 15px;padding-top: 15px;font: 14px/16px Arial, Helvetica, sans-serif">
+<i>Last data pull: April 14th 2020</i><br><br>
+Median Case Fatality Rate (CFR): 3.0% <br><br>
+<b>Data Sources:</b><br>
+<a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) & County Level Population</a><br>
+<a href="https://coronavirus.jhu.edu/us-map">Deaths & Confirmed Cases</a><br>
+<a href="https://www.census.gov/data.html">Racial Composition</a><br><br>
+<b>Reference:</b><br>
+<a href="https://www.census.gov/data.html">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a><br>
+</div>
 
-<script type="text/javascript" src="svi_cfr_04142020_joined.json"></script>
+<script type="text/javascript" src="04162020_joined.json"></script>
 
 
 <script type="text/javascript">
@@ -53,7 +63,7 @@
 		tileSize: 512,
 		zoomOffset: -1
 	}).addTo(map);
-	
+
 	// control that shows state info on hover
 	var info = L.control();
 
@@ -65,10 +75,14 @@
 
 	info.update = function (props) {
 		this._div.innerHTML = '<h4>County Data</h4>' +  (props ?
-			'<b>' + props.NAMELSAD + '</b><br />' 
-								 + 'Social Vulnerability Index: ' + props.RPL_THEMES + '<br />' 
-								 + 'Incidence Rate: ' + props.adj_incidenceper1000 + '<br />' 
-								 + 'Case Fatality Rate: ' + props.adj_casefatality
+			'<b>' + props.NAMELSAD + '</b><br />'
+								 + 'Social Vulnerability Index: ' + props.SVI_Main + '<br />'
+								 + 'Incidence/1000 people: ' + props.incidence + '<br />'
+								 + 'Case Fatality Rate (%): ' + props.case_fatality
+								 + '<br /><b>Racial Composition</b><br />'
+								 + '% Black: ' + props.Per_Black + '<br />'
+								 + '% Hispanic/Latino: ' + props.Per_Latin + '<br />'
+								 + '% White: ' + props.Per_white + '<br />'
 			: 'Hover over a county');
 	};
 
@@ -79,34 +93,62 @@
 	function getColor(d) {
 		return d === 'Red' ? '#d73027' :
 				d === 'Orange'  ? '#fc8d59' :
-					d === 'Yellow'  ? '#fee08b' :		
+					d === 'Yellow'  ? '#fee08b' :
 							'#1a9850';
 	}
 
 	function style(feature) {
-		return {
-			stroke: false,
-			fillOpacity: 0.7,
-			fillColor: getColor(feature.properties.Color)
-		};
-	}
-
-	function highlightFeature(e) {
-		var layer = e.target;
-
-		layer.setStyle({
-			weight: 5,
-			color: '#FFFFFF',
-			dashArray: '',
-			fillOpacity: 0.7
-		});
-
-		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-			layer.bringToFront();
+			return {
+				weight: 0.5,
+				opacity: 1,
+				color: '#666',
+				dashArray: '1',
+				fillOpacity: 0.7,
+				fillColor: getColor(feature.properties.CF_category)
+			};
 		}
 
-		info.update(layer.feature.properties);
-	}
+		function highlightFeature(e) {
+			var layer = e.target;
+
+			layer.setStyle({
+				weight: 1,
+				color: '#D3D3D3',
+				dashArray: '',
+				fillOpacity: 1
+			});
+
+			if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+				layer.bringToFront();
+			}
+
+			info.update(layer.feature.properties);
+		}
+
+	// function style(feature) {
+	// 	return {
+	// 		stroke: false,
+	// 		fillOpacity: 0.7,
+	// 		fillColor: getColor(feature.properties.CF_category)
+	// 	};
+	// }
+	//
+	// function highlightFeature(e) {
+	// 	var layer = e.target;
+	//
+	// 	layer.setStyle({
+	// 		weight: 5,
+	// 		color: '#FFFFFF',
+	// 		dashArray: '',
+	// 		fillOpacity: 0.7
+	// 	});
+	//
+	// 	if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+	// 		layer.bringToFront();
+	// 	}
+	//
+	// 	info.update(layer.feature.properties);
+	// }
 
 	var geojson;
 
@@ -132,7 +174,7 @@
 		onEachFeature: onEachFeature
 	}).addTo(map);
 
-	map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+	// map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
 	var legend = L.control({position: 'bottomright'});
@@ -141,7 +183,7 @@
 	legend.onAdd = function (map) {
 
 	    var div = L.DomUtil.create('div', 'info legend'),
-		grades = ["High Risk", "Med/High Risk", "Med/Low Risk", "Low Risk"],
+		grades = ["High SVI ( > 0.5)  & High CFR (> median)", "High SVI ( > 0.5)  & Low CFR (< median)", "Low SVI ( < 0.5)  & High CFR (> median)", "Low SVI ( < 0.5)  & Low CFR (< median)"],
 		labels = ['<i style="background: #d73027"></i>',
 			 '<i style="background: #fc8d59"></i>',
 			 '<i style="background: #fee08b"></i>',
@@ -156,7 +198,7 @@
 	};
 
 	legend.addTo(map);
-	
+
 
 </script>
 
