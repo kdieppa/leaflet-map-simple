@@ -23,12 +23,9 @@
 		}
 	</style>
 
-<style>
-#map { width: 1000px; height: 600px; }
+	<style>#map { width: 1000px; height: 600px; }
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 16px; color: #555; font: 14px/16px Arial, Helvetica, sans-serif;} .legend i { width: 16px; height: 16px; float: left; margin-right: 8px; opacity: 0.7; }
-/* #map-title { position: relative; margin-top: 10px; margin-left: 50px; float: left; background: rgba(255,255,255,0.8); border: 2px solid rgba(0,0,0,0.2); padding: 6px 8px; font-family: Helvetica; font-weight: bold; font-size: 24px; z-index: 800; opacity: 0.7;} */
-</style>
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
 
 </head>
 <body>
@@ -103,7 +100,7 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 				opacity: 1,
 				color: '#666',
 				dashArray: '1',
-				fillOpacity: 0.8,
+				fillOpacity: 0.7,
 				fillColor: getColor(feature.properties.CF_category)
 			};
 		}
@@ -112,8 +109,8 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 			var layer = e.target;
 
 			layer.setStyle({
-				weight: 1,
-				color: '#D3D3D3',
+				weight: 3,
+				color: '#666666',
 				dashArray: '',
 				fillOpacity: 1
 			});
