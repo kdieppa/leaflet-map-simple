@@ -32,17 +32,8 @@
 
 
 <!-- <div id="map-title">Social Vulnerability, Incidence Rate, and Fatality Rate in US Counties during COVID-19 Pandemic</div>	 -->
-<div id='map'></div>
-<div style="padding-left: 15px;padding-top: 15px;font: 14px/16px Arial, Helvetica, sans-serif">
-<i>Last data pull: April 14th 2020</i><br><br>
-Median Case Fatality Rate (CFR): 3.0% <br><br>
-<b>Data Sources:</b><br>
-<a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) & County Level Population</a><br>
-<a href="https://coronavirus.jhu.edu/us-map">Deaths & Confirmed Cases</a><br>
-<a href="https://www.census.gov/data.html">Racial Composition</a><br><br>
-<b>Reference:</b><br>
-<a href="https://www.census.gov/data.html">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a><br>
-</div>
+<div id="map"></div>
+<div class=" inline-styles">Only counties with > 50 confirmed cases shown<br/><br/> Median Case Fatality Rate (CFR): 3.0% <br/><br/>% Hispanic/Latino*: Per Census Bureau, hispanic origin can be viewed as the heritage, nationality, lineage, or country of birth of the person or the person’s parents or ancestors before arriving in the United States. People who identify as Hispanic, Latino, or Spanish may be any race.<br/><br/><i>Last data pull: April 14th 2020</i><br/><br/><strong>Data Sources:</strong><br/> <a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) &amp; County Level Population</a><br/> <a href="https://coronavirus.jhu.edu/us-map">Deaths &amp; Confirmed Cases</a><br/> <a href="https://www.census.gov/data.html">Racial Composition</a><br/><br/> <strong>Reference:</strong><br/> <a href="https://www.medrxiv.org/content/10.1101/2020.04.10.20060962v1">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a></div>
 
 <script type="text/javascript" src="04162020_joined.json"></script>
 
@@ -78,7 +69,7 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 								 + 'Case Fatality Rate (%): ' + props.case_fatality
 								 + '<br /><b>Racial Composition</b><br />'
 								 + '% Black: ' + props.Per_Black + '<br />'
-								 + '% Hispanic/Latino: ' + props.Per_Latin + '<br />'
+								 + '% Hispanic/Latino*: ' + props.Per_Latin + '<br />'
 								 + '% White: ' + props.Per_white + '<br />'
 			: 'Hover over a county');
 	};
@@ -155,7 +146,7 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 	legend.onAdd = function (map) {
 
 	    var div = L.DomUtil.create('div', 'info legend'),
-		grades = ["High SVI ( > 0.5)  & High CFR (> median)", "High SVI ( > 0.5)  & Low CFR (< median)", "Low SVI ( < 0.5)  & High CFR (> median)", "Low SVI ( < 0.5)  & Low CFR (< median)"],
+		grades = ["High SVI ( > 0.5)  & High CFR (> median)", "High SVI ( > 0.5)  & Low CFR (&#x2264; median)", "Low SVI ( &#x2264; 0.5)  & High CFR (> median)", "Low SVI ( &#x2264; 0.5)  & Low CFR (&#x2264; median)"],
 		labels = ['<i style="background: #d73027"></i>',
 			 '<i style="background: #fc8d59"></i>',
 			 '<i style="background: #fee08b"></i>',
