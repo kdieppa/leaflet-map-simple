@@ -103,7 +103,7 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 				opacity: 1,
 				color: '#666',
 				dashArray: '1',
-				fillOpacity: 0.7,
+				fillOpacity: 0.8,
 				fillColor: getColor(feature.properties.CF_category)
 			};
 		}
@@ -124,31 +124,6 @@ Median Case Fatality Rate (CFR): 3.0% <br><br>
 
 			info.update(layer.feature.properties);
 		}
-
-	// function style(feature) {
-	// 	return {
-	// 		stroke: false,
-	// 		fillOpacity: 0.7,
-	// 		fillColor: getColor(feature.properties.CF_category)
-	// 	};
-	// }
-	//
-	// function highlightFeature(e) {
-	// 	var layer = e.target;
-	//
-	// 	layer.setStyle({
-	// 		weight: 5,
-	// 		color: '#FFFFFF',
-	// 		dashArray: '',
-	// 		fillOpacity: 0.7
-	// 	});
-	//
-	// 	if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-	// 		layer.bringToFront();
-	// 	}
-	//
-	// 	info.update(layer.feature.properties);
-	// }
 
 	var geojson;
 
