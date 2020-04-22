@@ -33,9 +33,9 @@
 
 <!-- <div id="map-title">Social Vulnerability, Incidence Rate, and Fatality Rate in US Counties during COVID-19 Pandemic</div>	 -->
 <div id="map"></div>
-<div class=" inline-styles">Only counties with > 50 confirmed cases shown<br/><br/> Median Case Fatality Rate (CFR): 3.0% <br/><br/>% Hispanic/Latino*: Per Census Bureau, hispanic origin can be viewed as the heritage, nationality, lineage, or country of birth of the person or the person’s parents or ancestors before arriving in the United States. People who identify as Hispanic, Latino, or Spanish may be any race.<br/><br/><i>Last data pull: April 14th 2020</i><br/><br/><strong>Data Sources:</strong><br/> <a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) &amp; County Level Population</a><br/> <a href="https://coronavirus.jhu.edu/us-map">Deaths &amp; Confirmed Cases</a><br/> <a href="https://www.census.gov/data.html">Racial Composition</a><br/><br/> <strong>Reference:</strong><br/> <a href="https://www.medrxiv.org/content/10.1101/2020.04.10.20060962v1">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a></div>
+<div class=" inline-styles">Only counties with > 50 confirmed cases shown<br/><br/> Median Case Fatality Rate (CFR): 3.0% <br/><br/>% Hispanic/Latino*: Per Census Bureau, hispanic origin can be viewed as the heritage, nationality, lineage, or country of birth of the person or the person’s parents or ancestors before arriving in the United States. People who identify as Hispanic, Latino, or Spanish may be any race.<br/><br/><i>Last data pull: April 21st 2020</i><br/><br/><strong>Data Sources:</strong><br/> <a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) &amp; County Level Population</a><br/> <a href="https://coronavirus.jhu.edu/us-map">Deaths &amp; Confirmed Cases</a><br/> <a href="https://www.census.gov/data.html">Racial Composition</a><br/><br/> <strong>Reference:</strong><br/> <a href="https://www.medrxiv.org/content/10.1101/2020.04.10.20060962v1">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a></div>
 
-<script type="text/javascript" src="04162020_joined.json"></script>
+<script type="text/javascript" src="data4map.json"></script>
 
 
 <script type="text/javascript">
@@ -63,8 +63,8 @@
 
 	info.update = function (props) {
 		this._div.innerHTML = '<h4>County Data</h4>' +  (props ?
-			'<b>' + props.NAMELSAD + '</b><br />'
-								 + 'Social Vulnerability Index: ' + props.SVI_Main + '<br />'
+			'<b>' + props.LOCATION + '</b><br />'
+								 + 'Social Vulnerability Index: ' + props.RPL_THEMES + '<br />'
 								 + 'Incidence/1000 people: ' + props.incidence + '<br />'
 								 + 'Case Fatality Rate (%): ' + props.case_fatality
 								 + '<br /><b>Racial Composition</b><br />'
