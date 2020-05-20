@@ -33,7 +33,7 @@
 
 <!-- <div id="map-title">Social Vulnerability, Incidence Rate, and Fatality Rate in US Counties during COVID-19 Pandemic</div>	 -->
 <div id="map"></div>
-<div class=" inline-styles">Only counties with > 50 confirmed cases shown<br/><br/> Median Case Fatality Rate (CFR): 3.74% <br/><br/>% Hispanic/Latino*: Per Census Bureau, hispanic origin can be viewed as the heritage, nationality, lineage, or country of birth of the person or the person’s parents or ancestors before arriving in the United States. People who identify as Hispanic, Latino, or Spanish may be any race.<br/><br/><i><b>Last data pull: 5/12/2020</b><br>Map will be updated every Wednesday with data from the preceding day.</i><br/><br/><strong>Data Sources:</strong><br/> <a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) &amp; County Level Population</a><br/> <a href="https://coronavirus.jhu.edu/us-map">Deaths &amp; Confirmed Cases</a><br/> <a href="https://www.census.gov/data.html">Racial Composition</a><br/><br/> <strong>Reference:</strong><br/> <a href="https://www.medrxiv.org/content/10.1101/2020.04.10.20060962v1">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a></div>
+<div class=" inline-styles">Only counties with > 50 confirmed cases shown<br/><br/> Median Case Fatality Rate (CFR): 3.64% <br/><br/>% Hispanic/Latino*: Per Census Bureau, hispanic origin can be viewed as the heritage, nationality, lineage, or country of birth of the person or the person’s parents or ancestors before arriving in the United States. People who identify as Hispanic, Latino, or Spanish may be any race.<br/><br/><i><b>Last data pull: 5/19/2020</b><br>Map will be updated every Wednesday with data from the preceding day.</i><br/><br/><strong>Data Sources:</strong><br/> <a href="https://svi.cdc.gov/">Social Vulnerability Index (SVI) &amp; County Level Population</a><br/> <a href="https://coronavirus.jhu.edu/us-map">Deaths &amp; Confirmed Cases</a><br/> <a href="https://www.census.gov/data.html">Racial Composition</a><br/><br/> <strong>Reference:</strong><br/> <a href="https://www.medrxiv.org/content/10.1101/2020.04.10.20060962v1">Impact of Social Vulnerability on COVID-19 Incidence and Outcomes in the United States</a></div>
 
 <script type="text/javascript" src="data4map.json"></script>
 
@@ -79,9 +79,9 @@
 
 	// get color depending on population density value
 	function getColor(d) {
-		return d === 'Red' ? '#d73027' :
-				d === 'Orange'  ? '#fc8d59' :
-					d === 'Yellow'  ? '#fee08b' :
+		return d === '3' ? '#d73027' :
+				d === '2'  ? '#fc8d59' :
+					d === '1'  ? '#fee08b' :
 							'#1a9850';
 	}
 
